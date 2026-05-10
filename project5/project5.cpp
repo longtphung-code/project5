@@ -16,7 +16,7 @@ int main()
 	int userGuess = 0;
 	int count = 0;
 
-	cout << "Welcome to the Number Guessing Game, I have seleceteda  number between 1 and 10. Can you guess it?" << endl;
+	cout << "Welcome to the Number Guessing Game, I have seleceted a number between 1 and 10. Can you guess it?" << endl;
 
 	// Loop until the user guesses the number
 	while (userGuess != secretNumber)
