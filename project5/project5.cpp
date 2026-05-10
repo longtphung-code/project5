@@ -1,30 +1,42 @@
 #include <iostream>
+#include <random>
+
 using namespace std;
 
 int main()
 {
-	int rows = 10;
+	//Create a random number generator
+	random_device rd;
+	mt19937 gen(rd());
 
-	//Pattern A (1-30)
-	for (int i = 1; i <= rows; i++)
+	// Range 1 to 10
+	uniform_int_distribution<> dis(1, 10);
+
+	int secretNumber = dis(gen);
+	int userGuess = 0;
+	int count = 0;
+
+	cout << "Welcome to the Number Guessing Game, I have seleceteda  number between 1 and 10. Can you guess it?" << endl;
+
+	// Loop until the user guesses the number
+	while (userGuess != secretNumber)
 	{
-		for (int j = 1; j <= i; j++)
-		{
-			cout << "+";
-		}
-		cout << endl;
-	}
+		cout << "Enter your guess: ";
+		cin >> userGuess;
 
-	cout << endl;
-	//Pattern B (10-1)
-	for (int i = rows; i >= 1; i--)
-	{
-		for (int j = 1; j <= i; j++)
-		{
-			cout << "+";
-		}
-		cout << endl;
-	}
+		count++;
 
-	return 0;
+		if (userGuess < secretNumber)
+		{
+			cout << "Too low! Try again." << endl;
+		}
+		else if (userGuess > secretNumber)
+		{
+			cout << "Too high! Try again." << endl;
+		}
+		else
+		{
+			cout << "Congratulations! You guessed the number in " << count << " attempts!" << endl;
+		}
+	}
 }
