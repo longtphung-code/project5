@@ -1,70 +1,62 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+
+
 using namespace std;
 
-int main() 
+int main()
 {
-    ifstream inputFile;
+	ifstream inputFile;
 
-    string fileName;
-    string name;
-    string firstName;
-    string lastName;
+	string fileName;
+	string townName;
 
-    int count = 0;
+	int population;
+	int year = 1900;
 
-	// Prompt user for file name
-    cout << "Enter the file name: ";
-    cin >> fileName;
+	// Ask user for town name
+	cout << "Enter the town name: ";
+	getline(cin, townName);
 
-    // Open file
-	cout << "Opening file: " << fileName << endl;
-    inputFile.open(fileName);
+	// Ask user for file name
+	cout << "Enter the file name: ";
+	cin >> fileName;
 
-    // Check if file opened successfully
-    if (!inputFile)
-    {
-        cout << "Error: File could not be opened." << endl;
-        return 1;
-    }
+	//open the file
+	inputFile.open(fileName);
 
-    // Read first name (initialize tracking variables)
-    if (inputFile >> name)
-    {
-        firstName = name;
-        lastName = name;
-        count = 1;
-    }
-    else
-    {
-        cout << "File is empty." << endl;
-        return 1;
-    }
+	//Validate file opening 
+	if (!inputFile)
+	{
+		cout << "Error: File could not be opened." << endl;
+		return 1; // Exit with error code
+	}
 
-    // Read remaining names until EOF
-    while (inputFile >> name) {
+	//Display Chart heading
+	cout << endl;
+	cout << "\n" << townName << " Population Growth " << endl;
+	cout << "(each * represents 1,000 people)" << endl;
 
-        count++;
+	//Read population data from file and display chart
+	while (inputFile >> population)
+	{
+		//Display Year
+		cout << year << " ";
 
-        // Check for alphabetically smallest (first)
-        if (name < firstName) {
-            firstName = name;
-        }
+		//Display bar chart
+		for (int count = 0; count < population / 1000; count++)
+		{
+			cout << "*";
 
-        // Check for alphabetically largest (last)
-        if (name > lastName) {
-            lastName = name;
-        }
-    }
+		}
+		cout << endl;
 
-    // Output results
-    cout << "Number of students: " << count << endl;
-    cout << "First student in line: " << firstName << endl;
-    cout << "Last student in line: " << lastName << endl;
+		// Increase year by 20
+		year += 20;
+	}
+	//Close the file
+	inputFile.close();
 
-    // Close file
-    inputFile.close();
-
-    return 0;
+	return 0;
 }
